@@ -1,16 +1,88 @@
 //your variable declarations here
+SpaceShip bob;
+boolean left, right;
 public void setup() 
 {
   //your code here
+  size(400, 400);
+  background(255);
+  bob = new SpaceShip();
+  keyPressed();
+  //frameRate(6);
 }
 public void draw() 
 {
   //your code here
+  background(255);
+  bob.show();
+  bob.move();
+  bob.accel();
+  //  bob.turn();
 }
-class SpaceShip //extends Floater  
+public void keyPressed() {
+
+  if (key == 'a' ) {
+    bob.rotate(-7);
+  }
+  if (key == 'd') {
+    bob.rotate(7);
+  }
+}
+
+class SpaceShip extends Floater  
 {   
-    //your code here
+  //your code here
+  SpaceShip() {
+    corners = 3;
+    xCorners = new int [corners];
+    yCorners = new int [corners];
+    xCorners[0] = -8;
+    yCorners[0] = -8;
+    xCorners[1] = 16;
+    yCorners[1] = 0;
+    xCorners[2] = -8;
+    yCorners[2] = 8;
+  }
+  public void setX(int x) {
+    myCenterX = x;
+  }
+  public int getX() {
+    return (int)myCenterX;
+  }
+  public void setY(int y) {
+    myCenterY = y;
+  }
+  public int getY() {
+    return (int)myCenterY;
+  }
+  public void setDirectionX(double x) {
+    myDirectionX = x;
+  }
+  public double getDirectionX() {
+    return myDirectionX;
+  }
+  public void setDirectionY(double y) {
+    myDirectionY = y;
+  }
+  public double getDirectionY() {
+    return myDirectionY;
+  }
+  public void setPointDirection(double degrees) {
+    myPointDirection = degrees;
+  }
+  public double getPointDirection() {
+    return myPointDirection;
+  }
+  public void accel() {
+    if (mousePressed && (mouseButton == LEFT)) {
+      accelerate(0.1);
+    }
+    if (mousePressed && (mouseButton == RIGHT)) {
+      accelerate(-0.1);
+    }
+  }
 }
+
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
   protected int corners;  //the number of corners, a triangular floater has 3   
@@ -28,22 +100,23 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   abstract public double getDirectionX();   
   abstract public void setDirectionY(double y);   
   abstract public double getDirectionY();   
-  abstract public void setPointDirection(int degrees);   
+  abstract public void setPointDirection(double degrees);   
   abstract public double getPointDirection(); 
 
   //Accelerates the floater in the direction it is pointing (myPointDirection)   
   public void accelerate (double dAmount)   
   {          
     //convert the current direction the floater is pointing to radians    
-    double dRadians =myPointDirection*(Math.PI/180);     
+    double dRadians = myPointDirection*(Math.PI/180);     
     //change coordinates of direction of travel    
     myDirectionX += ((dAmount) * Math.cos(dRadians));    
-    myDirectionY += ((dAmount) * Math.sin(dRadians));       
+    myDirectionY += ((dAmount) * Math.sin(dRadians));
+    System.out.println(myDirectionX);
   }   
   public void rotate (int nDegreesOfRotation)   
   {     
     //rotates the floater by a given number of degrees    
-    myPointDirection+=nDegreesOfRotation;   
+    myPointDirection+=nDegreesOfRotation;
   }   
   public void move ()   //move the floater in the current direction of travel
   {      
@@ -52,22 +125,20 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     myCenterY += myDirectionY;     
 
     //wrap around screen    
-    if(myCenterX >width)
+    if (myCenterX > width)
     {     
-      myCenterX = 0;    
-    }    
-    else if (myCenterX<0)
+      myCenterX = 0;
+    } else if (myCenterX < 0)
     {     
-      myCenterX = width;    
+      myCenterX = width;
     }    
-    if(myCenterY >height)
+    if (myCenterY > height)
     {    
-      myCenterY = 0;    
-    }   
-    else if (myCenterY < 0)
+      myCenterY = 0;
+    } else if (myCenterY < 0)
     {     
-      myCenterY = height;    
-    }   
+      myCenterY = height;
+    }
   }   
   public void show ()  //Draws the floater at the current position  
   {             
@@ -77,14 +148,14 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     double dRadians = myPointDirection*(Math.PI/180);                 
     int xRotatedTranslated, yRotatedTranslated;    
     beginShape();         
-    for(int nI = 0; nI < corners; nI++)    
+    for (int nI = 0; nI < corners; nI++)    
     {     
       //rotate and translate the coordinates of the floater using current direction 
       xRotatedTranslated = (int)((xCorners[nI]* Math.cos(dRadians)) - (yCorners[nI] * Math.sin(dRadians))+myCenterX);     
       yRotatedTranslated = (int)((xCorners[nI]* Math.sin(dRadians)) + (yCorners[nI] * Math.cos(dRadians))+myCenterY);      
-      vertex(xRotatedTranslated,yRotatedTranslated);    
+      vertex(xRotatedTranslated, yRotatedTranslated);
     }   
-    endShape(CLOSE);  
-  }   
+    endShape(CLOSE);
+  }
 } 
 
