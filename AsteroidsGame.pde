@@ -7,8 +7,10 @@ public void setup()
   size(400, 400);
   background(255);
   bob = new SpaceShip();
+  bob.getX();
+  bob.getY();
   keyPressed();
-  //frameRate(6);
+
 }
 public void draw() 
 {
@@ -16,7 +18,6 @@ public void draw()
   background(255);
   bob.show();
   bob.move();
-  bob.accel();
   //  bob.turn();
 }
 public void keyPressed() {
@@ -26,6 +27,18 @@ public void keyPressed() {
   }
   if (key == 'd') {
     bob.rotate(7);
+  }
+  if (key == 'w') {
+    bob.accelerate(0.7);
+  }
+  if (key == 's') {
+    bob.accelerate(-0.7);
+  }
+  if(key == 'r') {
+    bob.setX((int)(Math.random()*400));
+    bob.getX();
+    bob.setY((int)(Math.random()*400));
+    bob.getY();
   }
 }
 
@@ -73,14 +86,6 @@ class SpaceShip extends Floater
   public double getPointDirection() {
     return myPointDirection;
   }
-  public void accel() {
-    if (mousePressed && (mouseButton == LEFT)) {
-      accelerate(0.1);
-    }
-    if (mousePressed && (mouseButton == RIGHT)) {
-      accelerate(-0.1);
-    }
-  }
 }
 
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
@@ -111,7 +116,6 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     //change coordinates of direction of travel    
     myDirectionX += ((dAmount) * Math.cos(dRadians));    
     myDirectionY += ((dAmount) * Math.sin(dRadians));
-    System.out.println(myDirectionX);
   }   
   public void rotate (int nDegreesOfRotation)   
   {     
