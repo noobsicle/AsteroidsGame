@@ -9,7 +9,7 @@ public void setup()
   bob = new SpaceShip();
   bob.getX();
   bob.getY();
-  keyPressed();
+  
 
 }
 public void draw() 
@@ -18,28 +18,34 @@ public void draw()
   background(255);
   bob.show();
   bob.move();
+//  bob.accelerate(movSpd);
   //  bob.turn();
 }
 public void keyPressed() {
 
-  if (key == 'a' ) {
-    bob.rotate(-7);
-  }
-  if (key == 'd') {
-    bob.rotate(7);
-  }
-  if (key == 'w') {
-    bob.accelerate(0.7);
+  
+ if (key == 'w') {
+    bob.accelerate(0.1);
   }
   if (key == 's') {
-    bob.accelerate(-0.7);
+    bob.accelerate(-0.2);
   }
   if(key == 'r') {
-    bob.setX((int)(Math.random()*400));
+    bob.setX((int)(Math.random()*350));
     bob.getX();
-    bob.setY((int)(Math.random()*400));
+    bob.setY((int)(Math.random()*350));
     bob.getY();
+    bob.accelerate(0);
+    bob.setDirectionX(0);
+    bob.getDirectionX();
+    bob.setDirectionY(0);
+    bob.getDirectionY();
+    bob.setPointDirection(Math.random()*360);
+    bob.getPointDirection();
   }
+}
+class Stars {
+  
 }
 
 class SpaceShip extends Floater  
@@ -66,7 +72,7 @@ class SpaceShip extends Floater
     myCenterY = y;
   }
   public int getY() {
-    return (int)myCenterY;
+    return(int)myCenterY;
   }
   public void setDirectionX(double x) {
     myDirectionX = x;
@@ -129,20 +135,34 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     myCenterY += myDirectionY;     
 
     //wrap around screen    
-    if (myCenterX > width)
+    if (myCenterX > width +20)
     {     
       myCenterX = 0;
-    } else if (myCenterX < 0)
+    } else if (myCenterX < - 20)
     {     
       myCenterX = width;
     }    
-    if (myCenterY > height)
+    if (myCenterY > height+20)
     {    
       myCenterY = 0;
-    } else if (myCenterY < 0)
+    } else if (myCenterY < -20)
     {     
       myCenterY = height;
     }
+    if (keyPressed && key == 'a'){
+      bob.rotate(-7);
+    }
+    if (keyPressed && key == 'd'){
+      bob.rotate(7);
+    }
+//    if(key == 'r') {
+//    bob.setX((int)(Math.random()*400));
+//    bob.getX();
+//    bob.setY((int)(Math.random()*400));
+//    bob.getY();
+//    
+//  }
+
   }   
   public void show ()  //Draws the floater at the current position  
   {             
