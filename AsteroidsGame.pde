@@ -1,6 +1,6 @@
 //your variable declarations here
 SpaceShip bob;
-boolean left, right;
+Star [] joes = new Star[50];
 public void setup() 
 {
   //your code here
@@ -8,29 +8,41 @@ public void setup()
   background(255);
   bob = new SpaceShip();
   bob.getX();
-  bob.getY();
-  
+  bob.getY();   
+  for (int starN = 0; starN < joes.length; starN++) {
+    joes[starN] = new Star();
+    joes[starN].show();
+  }
 
+  System.out.println(joes.length);
 }
-public void draw() 
-{
+public void draw() {
   //your code here
   background(255);
   bob.show();
   bob.move();
-//  bob.accelerate(movSpd);
+  for (int starN = 0; starN < joes.length; starN++) {
+    joes[starN] = new Star();
+    joes[starN].show();
+  }
+  //  bob.accelerate(movSpd);
   //  bob.turn();
 }
 public void keyPressed() {
-
-  
- if (key == 'w') {
-    bob.accelerate(0.1);
+  double accel = 0.3;
+  double accelRadians = bob.myPointDirection*(Math.PI/180);
+  //  bob.myDirectionX += ((accel) * Math.cos(accelRadians));        
+  //  bob.myDirectionY += ((accel) * Math.sin(accelRadians));
+  if (key == 'w') {
+    bob.accelerate(accel);
+    bob.myDirectionX += ((accel) * Math.cos(accelRadians));        
+    bob.myDirectionY += ((accel) * Math.sin(accelRadians));
   }
   if (key == 's') {
-    bob.accelerate(-0.2);
+    bob.myDirectionX += ((-accel) * Math.cos(accelRadians));        
+    bob.myDirectionY += ((-accel) * Math.sin(accelRadians));
   }
-  if(key == 'r') {
+  if (key == 'r') {
     bob.setX((int)(Math.random()*350));
     bob.getX();
     bob.setY((int)(Math.random()*350));
@@ -44,8 +56,15 @@ public void keyPressed() {
     bob.getPointDirection();
   }
 }
-class Stars {
-  
+class Star {
+  Star() {
+    //    fill(0);
+    //   ellipse((float)(Math.random() * 370), (float)(Math.random() * 370), (float)(Math.random() * 20), (float)(Math.random() * 20));
+  }
+  public void show() {
+    fill(0);
+    ellipse((float)(Math.random() * 370), (float)(Math.random() * 370),20,20);
+  }
 }
 
 class SpaceShip extends Floater  
@@ -149,20 +168,19 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     {     
       myCenterY = height;
     }
-    if (keyPressed && key == 'a'){
+    if (keyPressed && key == 'a') {
       bob.rotate(-7);
     }
-    if (keyPressed && key == 'd'){
+    if (keyPressed && key == 'd') {
       bob.rotate(7);
     }
-//    if(key == 'r') {
-//    bob.setX((int)(Math.random()*400));
-//    bob.getX();
-//    bob.setY((int)(Math.random()*400));
-//    bob.getY();
-//    
-//  }
-
+    //    if(key == 'r') {
+    //    bob.setX((int)(Math.random()*400));
+    //    bob.getX();
+    //    bob.setY((int)(Math.random()*400));
+    //    bob.getY();
+    //    
+    //  }
   }   
   public void show ()  //Draws the floater at the current position  
   {             
