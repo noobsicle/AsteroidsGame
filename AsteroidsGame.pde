@@ -5,28 +5,24 @@ public void setup()
 {
   //your code here
   size(400, 400);
-  background(255);
+  background(0); 
+  for (int starN = 0; starN < joes.length; starN++) {
+    joes[starN] = new Star();  
+  }
   bob = new SpaceShip();
   bob.getX();
-  bob.getY();   
-  for (int starN = 0; starN < joes.length; starN++) {
-    joes[starN] = new Star();
-    joes[starN].show();
-  }
+  bob.getY();
 
   System.out.println(joes.length);
 }
 public void draw() {
   //your code here
-  background(255);
-  bob.show();
-  bob.move();
+  background(0);
   for (int starN = 0; starN < joes.length; starN++) {
-    joes[starN] = new Star();
     joes[starN].show();
   }
-  //  bob.accelerate(movSpd);
-  //  bob.turn();
+  bob.show();
+  bob.move();
 }
 public void keyPressed() {
   double accel = 0.3;
@@ -57,13 +53,17 @@ public void keyPressed() {
   }
 }
 class Star {
+  float randPosX, randPosY;
   Star() {
     //    fill(0);
     //   ellipse((float)(Math.random() * 370), (float)(Math.random() * 370), (float)(Math.random() * 20), (float)(Math.random() * 20));
+     randPosX = (float)(Math.random() * 370);
+     randPosY = (float)(Math.random() * 370);
   }
   public void show() {
-    fill(0);
-    ellipse((float)(Math.random() * 370), (float)(Math.random() * 370),20,20);
+   noStroke();
+    fill(255,236,81);
+    ellipse(randPosX, randPosY,5,5);
   }
 }
 
