@@ -1,6 +1,6 @@
 //your variable declarations here
 SpaceShip bob;
-Star [] joes = new Star[50];
+Star [] joes = new Star[(int)(Math.random()*25) + 25];
 public void setup() 
 {
   //your code here
@@ -25,18 +25,20 @@ public void draw() {
   bob.move();
 }
 public void keyPressed() {
-  double accel = 0.3;
-  double accelRadians = bob.myPointDirection*(Math.PI/180);
-  //  bob.myDirectionX += ((accel) * Math.cos(accelRadians));        
-  //  bob.myDirectionY += ((accel) * Math.sin(accelRadians));
+  boolean accel,deccel;
+  accel = false;
+  deccel = false;
   if (key == 'w') {
-    bob.accelerate(accel);
-    bob.myDirectionX += ((accel) * Math.cos(accelRadians));        
-    bob.myDirectionY += ((accel) * Math.sin(accelRadians));
+   accel = true;
+  }
+  if(accel == true){
+    bob.accelerate(0.3);
   }
   if (key == 's') {
-    bob.myDirectionX += ((-accel) * Math.cos(accelRadians));        
-    bob.myDirectionY += ((-accel) * Math.sin(accelRadians));
+    deccel = true;
+  }
+  if (deccel == true) {
+    bob.accelerate(-0.3); 
   }
   if (key == 'r') {
     bob.setX((int)(Math.random()*350));
@@ -72,6 +74,7 @@ class SpaceShip extends Floater
   //your code here
   SpaceShip() {
     corners = 3;
+    myColor = 255;
     xCorners = new int [corners];
     yCorners = new int [corners];
     xCorners[0] = -8;
