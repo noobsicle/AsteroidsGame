@@ -19,7 +19,7 @@ public void draw() {
   //your code here
   background(0);
   for (int starN = 0; starN < joes.length; starN++) {
-    joes[starN].show();
+    joes[starN].starShow();
   }
   bob.show();
   bob.move();
@@ -62,7 +62,7 @@ class Star {
      randPosX = (float)(Math.random() * 370);
      randPosY = (float)(Math.random() * 370);
   }
-  public void show() {
+  public void starShow() {
    noStroke();
     fill(255,236,81);
     ellipse(randPosX, randPosY,5,5);
