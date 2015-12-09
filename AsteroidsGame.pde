@@ -1,19 +1,20 @@
 //your variable declarations here
 SpaceShip bob;
 Star [] joes = new Star[(int)(Math.random()*25) + 25];
+Asteroids roid = new Asteroids();
 public void setup() 
 {
   //your code here
   size(400, 400);
   background(0); 
+  roid.getX();
+  roid.getY();
   for (int starN = 0; starN < joes.length; starN++) {
-    joes[starN] = new Star();  
+    joes[starN] = new Star();
   }
   bob = new SpaceShip();
   bob.getX();
   bob.getY();
-
-  System.out.println(joes.length);
 }
 public void draw() {
   //your code here
@@ -22,23 +23,84 @@ public void draw() {
     joes[starN].starShow();
   }
   bob.show();
-  bob.move();
+  bob.move(); public void setX(int x) {
+    myCenterX = x;
+  }
+  public int getX() {
+    return (int)myCenterX;
+  }
+  public void setY(int y) {
+    myCenterY = y;
+  }
+  public int getY() {
+    return(int)myCenterY;
+  }
+  public void setDirectionX(double x) {
+    myDirectionX = x;
+  }
+  public double getDirectionX() {
+    return myDirectionX;
+  }
+  public void setDirectionY(double y) {
+    myDirectionY = y;
+  }
+  public double getDirectionY() {
+    return myDirectionY;
+  }
+  public void setPointDirection(double degrees) {
+    myPointDirection = degrees;
+  }
+  public double getPointDirection() {
+    return myPointDirection;
+  }l>?/
+ public void setX(int x) {
+    myCenterX = x;
+  }
+  public int getX() {
+    return (int)myCenterX;
+  }
+  public void setY(int y) {
+    myCenterY = y;
+  }
+  public int getY() {
+    return(int)myCenterY;
+  }
+  public void setDirectionX(double x) {
+    myDirectionX = x;
+  }
+  public double getDirectionX() {
+    return myDirectionX;
+  }
+  public void setDirectionY(double y) {
+    myDirectionY = y;
+  }
+  public double getDirectionY() {
+    return myDirectionY;
+  }
+  public void setPointDirection(double degrees) {
+    myPointDirection = degrees;
+  }
+  public double getPointDirection() {
+    return myPointDirection;
+  }<|  
+  SZ
+  SX
 }
 public void keyPressed() {
-  boolean accel,deccel;
+  boolean accel, deccel;
   accel = false;
   deccel = false;
   if (key == 'w') {
-   accel = true;
+    accel = true;
   }
-  if(accel == true){
-    bob.accelerate(0.3);
+  if (accel == true) {
+    bob.accelerate(0.1);
   }
   if (key == 's') {
     deccel = true;
   }
   if (deccel == true) {
-    bob.accelerate(-0.3); 
+    bob.accelerate(-0.3);
   }
   if (key == 'r') {
     bob.setX((int)(Math.random()*350));
@@ -54,19 +116,69 @@ public void keyPressed() {
     bob.getPointDirection();
   }
 }
+class Asteroids extends Floater {
+  Asteroids(){
+    corners = 5;
+    myColor = 150;
+    xCorners = new int [corners];
+    yCorners = new int [corners];
+    xCorners[0] = -6;
+    yCorners[0] = -8;
+    xCorners[1] = 14;
+    yCorners[1] = 4;
+    xCorners[2] = -8;
+    yCorners[2] = 10;
+    xCorners[3] = 10;
+    yCorners[3] = 1;
+    xCorners[4] = -1;
+    yCorners[4] = 2;
+  }
+    public void setX(int x) {
+    myCenterX = x;
+  }
+  public int getX() {
+    return (int)myCenterX;
+  }
+  public void setY(int y) {
+    myCenterY = y;
+  }
+  public int getY() {
+    return(int)myCenterY;
+  }
+  public void setDirectionX(double x) {
+    myDirectionX = x;
+  }
+  public double getDirectionX() {
+    return myDirectionX;
+  }
+  public void setDirectionY(double y) {
+    myDirectionY = y;
+  }
+  public double getDirectionY() {
+    return myDirectionY;
+  }
+  public void setPointDirection(double degrees) {
+    myPointDirection = degrees;
+  }
+  public double getPointDirection() {
+    return myPointDirection;
+  }
+  
+}
 class Star {
   float randPosX, randPosY;
   Star() {
     //    fill(0);
     //   ellipse((float)(Math.random() * 370), (float)(Math.random() * 370), (float)(Math.random() * 20), (float)(Math.random() * 20));
-     randPosX = (float)(Math.random() * 370);
-     randPosY = (float)(Math.random() * 370);
+    randPosX = (float)(Math.random() * 370);
+    randPosY = (float)(Math.random() * 370);
   }
   public void starShow() {
-   noStroke();
-    fill(255,236,81);
-    ellipse(randPosX, randPosY,5,5);
+    noStroke();
+    fill(255, 236, 81);
+    ellipse(randPosX, randPosY, 5, 5);
   }
+  
 }
 
 class SpaceShip extends Floater  
