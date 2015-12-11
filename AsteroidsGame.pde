@@ -26,6 +26,7 @@ public void draw() {
     joes[starN].starShow();
   }
   for (int ast = 0; ast < roids.length; ast++) {
+    roids[ast].rotate();
     roids[ast].show();
     roids[ast].move();
   }
@@ -40,13 +41,13 @@ public void keyPressed() {
     accel = true;
   }
   if (accel == true) {
-    bob.accelerate(0.3);
+    bob.accelerate(0.2);
   }
   if (key == 's') {
     deccel = true;
   }
   if (deccel == true) {
-    bob.accelerate(-0.3);
+    bob.accelerate(-0.2);
   }
   if (key == 'r') {
     bob.setX((int)(Math.random()*350));
@@ -60,14 +61,10 @@ public void keyPressed() {
     bob.getDirectionY();
     bob.setPointDirection(Math.random()*360);
     bob.getPointDirection();
-  }
-  public void keyReleased(){
-    
-    
-    
-  }
-}
+  }  
+ }
 class Asteroids extends Floater {
+  private int asteroidsRot; 
   Asteroids() {
     corners = 9;
     myColor = 150;
@@ -91,6 +88,7 @@ class Asteroids extends Floater {
     yCorners[6] = -10;
     yCorners[7] = -7;
     yCorners[8] = -3 ;
+    asteroidsRot = (int)(Math.random()*10)-5;
   }
   public void setX(int x) {
     myCenterX = x;
@@ -121,6 +119,12 @@ class Asteroids extends Floater {
   }
   public double getPointDirection() {
     return myPointDirection;
+  }
+  public void rotate (){
+    if(asteroidsRot == 0){
+        asteroidsRot = (int)(Math.random()*10)-5;
+    }
+     myPointDirection+=asteroidsRot;
   }
 }
 class Star {
