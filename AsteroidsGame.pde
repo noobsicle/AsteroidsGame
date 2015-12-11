@@ -1,17 +1,20 @@
 //your variable declarations here
 SpaceShip bob;
 Star [] joes = new Star[(int)(Math.random()*25) + 25];
-Asteroids roid = new Asteroids();
+Asteroids roids [] = new Asteroids[15];
 public void setup() 
 {
   //your code here
   size(400, 400);
   background(0); 
-  roid.getX();
-  roid.getY();
   for (int starN = 0; starN < joes.length; starN++) {
     joes[starN] = new Star();
   }
+  for (int ast = 0; ast < roids.length; ast++) {
+    roids[ast] = new Asteroids();
+    roids[ast].setX((int)(Math.random() * 350));
+    roids[ast].setY((int)(Math.random() * 350));
+  } 
   bob = new SpaceShip();
   bob.getX();
   bob.getY();
@@ -22,69 +25,12 @@ public void draw() {
   for (int starN = 0; starN < joes.length; starN++) {
     joes[starN].starShow();
   }
+  for (int ast = 0; ast < roids.length; ast++) {
+    roids[ast].show();
+    roids[ast].move();
+  }
   bob.show();
-  bob.move(); public void setX(int x) {
-    myCenterX = x;
-  }
-  public int getX() {
-    return (int)myCenterX;
-  }
-  public void setY(int y) {
-    myCenterY = y;
-  }
-  public int getY() {
-    return(int)myCenterY;
-  }
-  public void setDirectionX(double x) {
-    myDirectionX = x;
-  }
-  public double getDirectionX() {
-    return myDirectionX;
-  }
-  public void setDirectionY(double y) {
-    myDirectionY = y;
-  }
-  public double getDirectionY() {
-    return myDirectionY;
-  }
-  public void setPointDirection(double degrees) {
-    myPointDirection = degrees;
-  }
-  public double getPointDirection() {
-    return myPointDirection;
-  }l>?/
- public void setX(int x) {
-    myCenterX = x;
-  }
-  public int getX() {
-    return (int)myCenterX;
-  }
-  public void setY(int y) {
-    myCenterY = y;
-  }
-  public int getY() {
-    return(int)myCenterY;
-  }
-  public void setDirectionX(double x) {
-    myDirectionX = x;
-  }
-  public double getDirectionX() {
-    return myDirectionX;
-  }
-  public void setDirectionY(double y) {
-    myDirectionY = y;
-  }
-  public double getDirectionY() {
-    return myDirectionY;
-  }
-  public void setPointDirection(double degrees) {
-    myPointDirection = degrees;
-  }
-  public double getPointDirection() {
-    return myPointDirection;
-  }<|  
-  SZ
-  SX
+  bob.move();
 }
 public void keyPressed() {
   boolean accel, deccel;
@@ -94,7 +40,7 @@ public void keyPressed() {
     accel = true;
   }
   if (accel == true) {
-    bob.accelerate(0.1);
+    bob.accelerate(0.3);
   }
   if (key == 's') {
     deccel = true;
@@ -115,25 +61,38 @@ public void keyPressed() {
     bob.setPointDirection(Math.random()*360);
     bob.getPointDirection();
   }
+  public void keyReleased(){
+    
+    
+    
+  }
 }
 class Asteroids extends Floater {
-  Asteroids(){
-    corners = 5;
+  Asteroids() {
+    corners = 9;
     myColor = 150;
-    xCorners = new int [corners];
-    yCorners = new int [corners];
-    xCorners[0] = -6;
-    yCorners[0] = -8;
-    xCorners[1] = 14;
-    yCorners[1] = 4;
-    xCorners[2] = -8;
-    yCorners[2] = 10;
-    xCorners[3] = 10;
-    yCorners[3] = 1;
-    xCorners[4] = -1;
-    yCorners[4] = 2;
+    xCorners = new int[corners];
+    yCorners = new int[corners];
+    xCorners[0] = 8;
+    xCorners[1] = 8;
+    xCorners[2] = 0;
+    xCorners[3] = -4;
+    xCorners[4] = -11;
+    xCorners[5] = -11;
+    xCorners[6] = -6;
+    xCorners[7] = 8;
+    xCorners[8] = 10;
+    yCorners[0] = 2;
+    yCorners[1] = 10;
+    yCorners[2] = 12;
+    yCorners[3] = 7;
+    yCorners[4] = 4;
+    yCorners[5] = -5;
+    yCorners[6] = -10;
+    yCorners[7] = -7;
+    yCorners[8] = -3 ;
   }
-    public void setX(int x) {
+  public void setX(int x) {
     myCenterX = x;
   }
   public int getX() {
@@ -163,7 +122,6 @@ class Asteroids extends Floater {
   public double getPointDirection() {
     return myPointDirection;
   }
-  
 }
 class Star {
   float randPosX, randPosY;
@@ -178,7 +136,6 @@ class Star {
     fill(255, 236, 81);
     ellipse(randPosX, randPosY, 5, 5);
   }
-  
 }
 
 class SpaceShip extends Floater  
@@ -225,6 +182,16 @@ class SpaceShip extends Floater
   }
   public double getPointDirection() {
     return myPointDirection;
+  }
+
+  public void move() {
+    super.move();
+    if (keyPressed && key == 'a') {
+      bob.rotate(-7);
+    }
+    if (keyPressed && key == 'd') {
+      bob.rotate(7);
+    }
   }
 }
 
@@ -283,19 +250,6 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     {     
       myCenterY = height;
     }
-    if (keyPressed && key == 'a') {
-      bob.rotate(-7);
-    }
-    if (keyPressed && key == 'd') {
-      bob.rotate(7);
-    }
-    //    if(key == 'r') {
-    //    bob.setX((int)(Math.random()*400));
-    //    bob.getX();
-    //    bob.setY((int)(Math.random()*400));
-    //    bob.getY();
-    //    
-    //  }
   }   
   public void show ()  //Draws the floater at the current position  
   {             
