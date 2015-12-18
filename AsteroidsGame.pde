@@ -1,7 +1,8 @@
 //your variable declarations here
+public int roidsNum = (int)(Math.random() * 25)+25;
 SpaceShip bob;
 Star [] joes = new Star[(int)(Math.random()*25) + 25];
-Asteroids roids [] = new Asteroids[15];
+ArrayList<Asteroids> roids = new ArrayList<Asteroids>();
 public void setup() 
 {
   //your code here
@@ -10,28 +11,31 @@ public void setup()
   for (int starN = 0; starN < joes.length; starN++) {
     joes[starN] = new Star();
   }
-  for (int ast = 0; ast < roids.length; ast++) {
-    roids[ast] = new Asteroids();
-    roids[ast].setX((int)(Math.random() * 350));
-    roids[ast].setY((int)(Math.random() * 350));
+  for (int ast = 0; ast < roidsNum; ast++) {
+    roids.add(ast, new Asteroids());
+    roids.get(ast).setX((int)(Math.random() * 350));
+    roids.get(ast).setY((int)(Math.random() * 350));
+    roids.get(ast).setDirectionX((Math.random() * 3) -1.5);
+    roids.get(ast).setDirectionY((Math.random() * 3) -1.5);
   } 
   bob = new SpaceShip();
-  bob.getX();
-  bob.getY();
+  bob.setX(200);
+  bob.setY(200);
 }
 public void draw() {
   //your code here
+  System.out.println(roids.size());
   background(0);
   for (int starN = 0; starN < joes.length; starN++) {
     joes[starN].starShow();
   }
-  for (int ast = 0; ast < roids.length; ast++) {
-    roids[ast].rotate();
-    roids[ast].show();
-    roids[ast].move();
+  for (int ast = 0; ast < roidsNum; ast++) {
+    roids.get(ast).rotate();
+    roids.get(ast).move();
+    roids.get(ast).show();
   }
-  bob.show();
   bob.move();
+  bob.show();
 }
 public void keyPressed() {
   boolean accel, deccel;
@@ -125,6 +129,10 @@ class Asteroids extends Floater {
         asteroidsRot = (int)(Math.random()*10)-5;
     }
      myPointDirection+=asteroidsRot;
+  }
+  public void move(){
+      myCenterX += myDirectionX;    
+      myCenterY += myDirectionY;
   }
 }
 class Star {
